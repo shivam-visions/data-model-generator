@@ -1,6 +1,6 @@
 # Data Model Generator
 
-A library and CLI tool to generate TypeScript interfaces from various data sources like JSON, API responses. Designed to improve code maintainability and reduce development time.
+A library and CLI tool to generate TypeScript interfaces from various data sources like JSON, API responses and xml. Designed to improve code maintainability and reduce development time.
 
 ## Features
 
