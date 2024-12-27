@@ -1,0 +1,10 @@
+
+---
+
+### Key Sections in the Updated README:
+
+1. **Installation**: Provides installation instructions via NPM.
+2. **CLI Usage**: Explains how to use the command line tool to generate models from various data sources.
+3. **Programmatic Usage**: Demonstrates how to use the library in your JavaScript code, including examples for JSON, API responses, and XML.
+4. **Supported Data Formats**: Lists the supported data types, including JSON, XML, YAML, CSV, and Protobuf.
+5. **Custom Mappings**: Explains how to provide custom field type mappings for more control over the generated TypeScript models.
