@@ -1,9 +1,7 @@
 const { parseJSON } = require('./parsers/jsonParser');
 const { parseXML } = require('./parsers/xmlParser');
-const { parseYAML } = require('./parsers/yamlParser');
 const { parseAPI } = require('./parsers/apiParser');
-const { parseProtobuf } = require('./parsers/protobufParser');
-const { parseCSV } = require('./parsers/csvParser');
+
 const { generateInterface } = require('./generators/interfaceGenerator');
 
 async function generateModelFromSource(source, type, options = {}) {
@@ -17,17 +15,8 @@ async function generateModelFromSource(source, type, options = {}) {
     case 'xml':
       data = await parseXML(source);
       break;
-    case 'yaml':
-      data = parseYAML(source);
-      break;
     case 'api':
       data = await parseAPI(source);
-      break;
-    case 'protobuf':
-      data = await parseProtobuf(source);
-      break;
-    case 'csv':
-      data = await parseCSV(source);
       break;
     default:
       throw new Error('Unsupported source type.');
