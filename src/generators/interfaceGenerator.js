@@ -8,18 +8,21 @@ function generateInterface(interfaceName, data, mappings = {}) {
 
   function inferType(value, mappings) {
     if (Array.isArray(value)) {
-      return 'any';
+      if (value.length > 0) {
+        return `${inferType(value[0], mappings)}[]`;
+      }
+      return 'any[]';
     }
     if (typeof value === 'string') return 'string';
     if (typeof value === 'number') return 'number';
     if (typeof value === 'boolean') return 'boolean';
-    if (value === null) return 'null';
-    if (typeof value === 'object') return 'object';
+    if (value === null) return 'null | undefined';
+    if (typeof value === 'object') return 'any';
     return 'any';
   }
 
   function generateNestedInterface(key, value) {
-    if (typeof value === 'object' && !Array.isArray(value)) {
+    if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
       const nestedInterfaceName = capitalize(key);
       if (!generatedInterfaces[nestedInterfaceName]) {
         generatedInterfaces[nestedInterfaceName] = generateInterface(nestedInterfaceName, value, mappings);
@@ -32,16 +35,10 @@ function generateInterface(interfaceName, data, mappings = {}) {
   for (const key in data) {
     const value = data[key];
 
-    if (Array.isArray(value)) {
-      if (value.length > 0 && typeof value[0] === 'object') {
-        const nestedInterfaceName = capitalize(key);
-        if (!generatedInterfaces[nestedInterfaceName]) {
-          generatedInterfaces[nestedInterfaceName] = generateInterface(nestedInterfaceName, value[0], mappings);
-        }
-        lines.push(`  ${key}: ${nestedInterfaceName}[];`);
-      } else {
-        lines.push(`  ${key}: ${inferType(value[0], mappings)}[];`);
-      }
+    if (value === null) {
+      lines.push(`  ${key}?: null | undefined;`);
+    } else if (Array.isArray(value)) {
+      lines.push(`  ${key}: ${inferType(value, mappings)};`);
     } else if (typeof value === 'object') {
       const nestedInterfaceName = generateNestedInterface(key, value);
       lines.push(`  ${key}: ${nestedInterfaceName};`);
@@ -60,6 +57,5 @@ function generateInterface(interfaceName, data, mappings = {}) {
 
   return finalOutput;
 }
-  
+
 module.exports = { generateInterface };
-  
