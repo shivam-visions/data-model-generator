@@ -21,6 +21,7 @@
     "type": "git",
     "url": "https://github.com/shivam-visions/data-model-generator.git"
   },
+  "types": "types/data-model-generator.d.ts",
   "dependencies": {
     "axios": "^1.7.9",
     "commander": "^12.1.0",
