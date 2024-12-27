@@ -15,10 +15,10 @@ program
   .option('-t, --type <type>', 'Input type: json, xml, yaml, api, csv')
   .option('-n, --name <name>', 'Interface name', 'Root')
   .option('-o, --output <path>', 'Path to save the generated interface')
-  .option('-m, --mappings <path>', 'Path to custom mappings JSON file') // Allow custom mappings
+  .option('-m, --mappings <path>', 'Path to custom mappings JSON file')
 
   .action(async (options) => {
-    const { source, type, name, output, mappings } = options; // Extract mappings from options
+    const { source, type, name, output, mappings } = options;
 
     if (!source || !type) {
       console.error('Error: Source and type are required.');
@@ -28,7 +28,6 @@ program
     try {
       const input = fs.readFileSync(source, 'utf-8');
 
-      // Parse custom mappings if provided
       const customMappings = mappings
         ? JSON.parse(fs.readFileSync(mappings, 'utf-8'))
         : {
@@ -36,11 +35,11 @@ program
             number: "number",
             boolean: "boolean",
             object: "any",
-          }; // Default mappings
+          };
 
       const result = await generateModelFromSource(input, type, {
         interfaceName: name,
-        mappings: customMappings, // Pass mappings to the generator
+        mappings: customMappings,
       });
 
       if (output) {

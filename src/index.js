@@ -10,7 +10,6 @@ async function generateModelFromSource(source, type, options = {}) {
   const { interfaceName = 'Root', customMappings = {} } = options;
   let data;
 
-  // Parse the input based on the specified type
   switch (type.toLowerCase()) {
     case 'json':
       data = parseJSON(source);
@@ -33,9 +32,7 @@ async function generateModelFromSource(source, type, options = {}) {
     default:
       throw new Error('Unsupported source type.');
   }
-  // console.log('Parsed Data:', JSON.stringify(data, null, 2)); 
-  // return false;
-  // Handle array or object and generate the appropriate TypeScript interface
+
   if (Array.isArray(data)) {
     const firstElement = data[0];
     if (typeof firstElement === 'object' && firstElement !== null) {
