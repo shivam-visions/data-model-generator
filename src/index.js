@@ -2,12 +2,15 @@ const { parseJSON } = require('./parsers/jsonParser');
 const { parseXML } = require('./parsers/xmlParser');
 const { parseYAML } = require('./parsers/yamlParser');
 const { parseAPI } = require('./parsers/apiParser');
-const { generateInterface } = require('./generators/interfaceGenerator');
 const { parseProtobuf } = require('./parsers/protobufParser');
 const { parseCSV } = require('./parsers/csvParser');
+const { generateInterface } = require('./generators/interfaceGenerator');
 
 async function generateModelFromSource(source, type, options = {}) {
+  const { interfaceName = 'Root', customMappings = {} } = options;
   let data;
+
+  // Parse the input based on the specified type
   switch (type.toLowerCase()) {
     case 'json':
       data = parseJSON(source);
@@ -22,16 +25,30 @@ async function generateModelFromSource(source, type, options = {}) {
       data = await parseAPI(source);
       break;
     case 'protobuf':
-        data = await parseProtobuf(source);
-        break;
+      data = await parseProtobuf(source);
+      break;
     case 'csv':
-        data = await parseCSV(source);
-        break;
+      data = await parseCSV(source);
+      break;
     default:
       throw new Error('Unsupported source type.');
   }
-
-  return generateInterface(data, options.interfaceName || 'Root');
+  // console.log('Parsed Data:', JSON.stringify(data, null, 2)); 
+  // return false;
+  // Handle array or object and generate the appropriate TypeScript interface
+  if (Array.isArray(data)) {
+    const firstElement = data[0];
+    if (typeof firstElement === 'object' && firstElement !== null) {
+      return generateInterface(interfaceName, firstElement, customMappings);
+    } else {
+      throw new Error('Array elements must be objects to generate an interface.');
+    }
+  } else if (typeof data === 'object' && data !== null) {
+    return generateInterface(interfaceName, data, customMappings);
+  } else {
+    throw new Error('Input data must be an object or an array of objects.');
+  }
 }
+
 
 module.exports = { generateModelFromSource };
