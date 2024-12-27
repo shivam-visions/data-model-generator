@@ -1,5 +1,9 @@
-const csv = require('csv-parser');
-const fs = require('fs');
+let fs, csv;
+
+if (typeof window === 'undefined') {
+  fs = require('fs');
+  csv = require('csv-parser');
+}
 
 function parseCSV(csvFilePath) {
   return new Promise((resolve, reject) => {
