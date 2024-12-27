@@ -48,14 +48,14 @@ async function generateModelFromSource(source, type, options = {}) {
     return;
   }
 
-  if (outputPath) {
-    const fs = require('fs');
-    const path = require('path');
-    const filePath = path.join(outputPath, fileName);
-    fs.writeFileSync(filePath, interfaceCode, 'utf8');
-    console.log(`Interface file saved to: ${filePath}`);
-    return;
-  }
+  // if (outputPath) {
+  //   const fs = require('fs');
+  //   const path = require('path');
+  //   const filePath = path.join(outputPath, fileName);
+  //   fs.writeFileSync(filePath, interfaceCode, 'utf8');
+  //   console.log(`Interface file saved to: ${filePath}`);
+  //   return;
+  // }
 
   return interfaceCode;
 }
