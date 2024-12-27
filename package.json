@@ -1,0 +1,29 @@
+{
+  "name": "data-model-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["typescript", "interfaces", "json", "yaml", "csv", "protobuf", "xml"],
+  "author": "Shivam Sharma",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shivam-visions/data-model-generator.git"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "commander": "^12.1.0",
+    "csv-parser": "^3.1.0",
+    "js-yaml": "^4.1.0",
+    "xml2js": "^0.6.2"
+  },
+  "bin": {
+    "data-model-gen": "./bin/cli.js"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
