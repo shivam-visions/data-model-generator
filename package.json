@@ -1,6 +1,6 @@
 {
   "name": "data-model-generator",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The Data Model Generator is a utility library and CLI tool designed to automatically generate TypeScript interfaces based on various data sources. It simplifies the process of creating and maintaining type-safe data models in TypeScript, which improves code readability, maintainability, and reduces development time.",
   "main": "src/index.js",
   "scripts": {
