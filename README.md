@@ -12,7 +12,8 @@ A library and CLI tool to generate TypeScript interfaces from various data sourc
 ---
 
 ## Installation
-
+Node version used 16.10.0
+npm version used 7.24.0
 ### Using NPM
 ```bash
 npm install -g <your-package-name>
